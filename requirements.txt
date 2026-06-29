@@ -1,3 +1,4 @@
 pyTelegramBotAPI
-yt-dlp
 Flask
+Pillow==10.4.0
+rembg[gpu]   # GPU version না চাইলে rembg লিখতে পারো
