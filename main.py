@@ -1,19 +1,17 @@
 import telebot
 from telebot import types
-from PIL import Image, ImageFilter
+from PIL import Image, ImageFilter, ImageOps
 from rembg import remove
 import io
 import os
 import logging
 from flask import Flask, request
-import threading
 
 # ========================= CONFIGURATION =========================
-BOT_TOKEN = "8599026487:AAF6TtOCpBJnuly-QLnU2sZz3RsdxCP-Bl0"   # ←←← এখানে তোমার টোকেন বসাও
+BOT_TOKEN = os.environ.get("8599026487:AAF6TtOCpBJnuly-QLnU2sZz3RsdxCP-Bl0")   # ← এখন Environment Variable থেকে নিবে
 
-# Branded links (optional)
-YOUTUBE_CHANNEL = "https://youtube.com/@yourchannel"
-SUPPORT_CHANNEL = "https://t.me/yourchannel"
+if not BOT_TOKEN:
+    raise ValueError("BOT_TOKEN not found in environment variables!")
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -21,7 +19,7 @@ logger = logging.getLogger(__name__)
 bot = telebot.TeleBot(BOT_TOKEN)
 app = Flask(__name__)
 
-# ========================= FLASK WEBHOOK =========================
+# ========== FLASK WEBHOOK =========================
 @app.route('/')
 def index():
     return "✅ Background Blur Bot is LIVE 24/7!"
